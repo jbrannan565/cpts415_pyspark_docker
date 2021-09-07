@@ -1,6 +1,11 @@
 ## Dependencies
 [docker](https://docs.docker.com/get-docker/)
 
+### installing docker on ubuntu
+```bash
+./install_docker.sh
+```
+
 ## Getting Started
 1. Move into repo
 ```bash
