@@ -12,12 +12,10 @@ then
 docker run -d \
        	--name $1 \
 	--mount source=sparky-vol,target=/notebooks \ 
-	-p 8080:80 \
 	sparky-image 
 else
 docker run -d \
 	--name spary
 	--mount source=sparky-vol,target=/notebooks \ 
-	-p 8080:80 \
 	sparky-image 
 fi
