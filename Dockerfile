@@ -40,8 +40,10 @@ RUN cat $HOME/.ssh/spark_rsa.pub >> $HOME/.ssh/authorized_keys
 
 # download an unzip pyspark
 RUN cd $HOME
-RUN sudo wget "https://www.apache.org/dyn/closer.lua/spark/spark-3.0.3/spark-3.0.3-bin-hadoop3.2.tgz"
-RUN tar -zxvf spark-3.0.3-bin-hadoop3.2.tgz
+RUN sudo wget "https://dlcdn.apache.org/spark/spark-3.0.3/spark-3.0.3-bin-hadoop3.2.tgz" \
+  && tar zxvf spark-3.0.3-bin-hadoop3.2.tgz
+
+#tar zxvf spark-3.0.3-bin-hadoop3.2.tgz
 
 # run spark cluster
 RUN $HOME/spark-3.0.3-bin-hadoop3.2/sbin/start-all.sh
