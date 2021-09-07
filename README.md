@@ -10,3 +10,4 @@ cd cpts415_pyspark_docker
 ```
 ./start.sh
 ```
+3. Follow on screen instructions
