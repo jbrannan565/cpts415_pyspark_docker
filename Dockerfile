@@ -21,6 +21,11 @@ RUN apt install openssh-server net-tools openjdk-11-jre-headless python3-pip -y
 # start ssh
 RUN service ssh start
 
+EXPOSE 22
+
+USER root
+CMD ["sh", "/etc/init.d/ssh", "start"]
+
 # add user
 RUN useradd -m sparky
 RUN usermod -aG sudo sparky
@@ -38,28 +43,22 @@ RUN ssh-keygen -f $HOME/.ssh/spark_rsa -N ""
 # add key to own authorized keys
 RUN cat $HOME/.ssh/spark_rsa.pub >> $HOME/.ssh/authorized_keys
 
-# download an unzip pyspark
+# download, unzip pyspark
+# and run spark cluster
 RUN cd $HOME
 RUN sudo wget "https://dlcdn.apache.org/spark/spark-3.0.3/spark-3.0.3-bin-hadoop3.2.tgz" \
-  && tar zxvf spark-3.0.3-bin-hadoop3.2.tgz
-
-#tar zxvf spark-3.0.3-bin-hadoop3.2.tgz
-
-# run spark cluster
-RUN $HOME/spark-3.0.3-bin-hadoop3.2/sbin/start-all.sh
+  && sudo tar zxvf spark-3.0.3-bin-hadoop3.2.tgz \
+  && sudo spark-3.0.3-bin-hadoop3.2/sbin/start-all.sh
 
 # install python deps
 RUN pip3 install pyspark==3.0.3 notebook pandas jupyterlab
 
 # add notebook to PATH
-RUN echo "PATH=\$PATH:/home/ubuntu/.local/bin" >> $HOME/.bashrc
+ENV PATH="${PATH}:/home/ubuntu/.local/bin"
 
 # add pyspark env vars
-RUN echo "export SPARK_HOME=$HOME/spark-3.0.3-bin-hadoop3.2" >> $HOME/.bashrc
-RUN echo "export PYTHONPATH=$HOME/spark-3.0.3-bin-hadoop3.2/PYTHON" >> $HOME/.bashrc
-
-# update env
-RUN source $HOME/.bashrc
+ENV SPARK_HOME="${HOME}/spark-3.0.3-bin-hadoop3.2"
+ENV PYTHONPATH="${HOME}/spark-3.0.3-bin-hadoop3.2/PYTHON"
 
 # start jupyter lab
 RUN jupyter lab &
