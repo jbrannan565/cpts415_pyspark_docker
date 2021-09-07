@@ -1,4 +1,7 @@
-# Getting Started
+## Dependencies
+[docker](https://docs.docker.com/get-docker/)
+
+## Getting Started
 1. Move into repo
 ```bash
 cd cpts415_pyspark_docker
