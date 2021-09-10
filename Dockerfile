@@ -67,6 +67,7 @@ ENV SPARK_HOME="/home/sparky/spark-3.0.3-bin-hadoop3.2"
 ENV PYTHONPATH="/home/sparky/spark-3.0.3-bin-hadoop3.2/PYTHON"
 
 # start jupyter lab
+EXPOSE 8080
+EXPOSE 8888
 RUN cd "/home/sparky"
-CMD ["jupyter", "lab"]
-EXPOSE 8080 8888
+CMD ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--notebook-dir", "/notebooks"]
