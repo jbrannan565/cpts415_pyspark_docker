@@ -16,3 +16,7 @@ cd cpts415_pyspark_docker
 ./start.sh
 ```
 3. Follow on screen instructions
+
+
+## Todo:
+- Currently, you have to connect to the image and manually start-all in pyspark. This should start automatically.
